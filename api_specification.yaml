@@ -1,0 +1,138 @@
+openapi: 3.0.0
+info:
+  description: This is a description of **links** REST-like microservice, a part of **clckngo** project
+  version: "1.0.0"
+  title: clckngo links API
+  contact:
+    name: Dmitrii
+    email: dimaconway@gmail.com
+tags:
+  - name: links
+    description: The only resource
+paths:
+  /links:
+    post:
+      tags:
+        - links
+      summary: Shorten url
+      operationId: storeLink
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Link'
+        description: URL to shorten
+      responses:
+        '201':
+          description: item created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Link'
+        '400':
+          description: 'invalid input, object invalid'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+                    description: Original url from request
+                  reason:
+                    type: string
+                    description: Error reason
+        '409':
+          description: an existing item already exists
+    get:
+      tags:
+        - links
+      summary: Return Links shortened by the service
+      operationId: getLinks
+      responses:
+        '200':
+          description: Collection of `Link` objects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Link'
+  /links/{hash}:
+    parameters:
+      - name: hash
+        in: path
+        description: Hash of shortened url
+        required: true
+        schema:
+          type: string
+    get:
+      tags:
+        - links
+      summary: Return shortened url
+      operationId: getLink
+      responses:
+        '200':
+          description: A `Link` object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Link'
+    patch:
+      tags:
+        - links
+      summary: Increment hits counter
+      operationId: incrementHitsCounter
+      responses:
+        '200':
+          description: A `Link` object with updated `hits` field
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Link'
+    delete:
+      tags:
+        - links
+      summary: Delete Link
+      operationId: deleteLink
+      responses:
+        '200':
+          description: OK
+components:
+  schemas:
+    Link:
+      type: object
+      required:
+        - id
+        - createdDatetime
+        - url
+        - hash
+        - hits
+        - lastHitDatetime
+      properties:
+        id:
+          type: string
+          example: '51e0373c6f35bd826f47e9a1'
+          readOnly: true
+        createdDatetime:
+          type: string
+          format: date-time
+          example: '2017-07-21T17:32:28+02:00'
+          description: date-time notation as defined by RFC 3339, section 5.6
+          readOnly: true
+        url:
+          type: string
+        hash:
+          type: string
+          readOnly: true
+        hits:
+          type: integer
+          readOnly: true
+          description: Counter how many times shortened url was opened
+        lastHitDatetime:
+          type: string
+          format: date-time
+          example: '2017-07-21T17:32:28+02:00'
+          description: date-time notation as defined by RFC 3339, section 5.6
+          readOnly: true
+          nullable: true

@@ -1,0 +1,24 @@
+version: '3'
+services:
+  links:
+    image: ${CLCKNGO__DOCKER_IMAGE_PREFIX:-clckngo}_links:latest
+    env_file: ${CLCKNGO_LINKS__ROOT_DIR:-.}/.env
+    build:
+      context: ${CLCKNGO_LINKS__ROOT_DIR:-.}/
+      dockerfile: ./Dockerfile
+    networks:
+      - links_net
+  links_db:
+    image: mongo:4
+    restart: always
+    env_file: ${CLCKNGO_LINKS__ROOT_DIR:-.}/.env
+    volumes:
+      - links_db_data:/data/db
+    networks:
+      - links_net
+networks:
+  links_net:
+    driver: bridge
+volumes:
+  links_db_data:
+    driver: local
