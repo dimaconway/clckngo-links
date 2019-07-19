@@ -4,14 +4,15 @@ import (
     "github.com/labstack/echo/v4"
     "github.com/labstack/echo/v4/middleware"
 
-    "clckngo/links/ApiSpecification"
+    "clckngo/links/controllers"
+    "clckngo/links/server"
 )
 
 func main() {
     e := echo.New()
 
-    var api ApiSpecification.LinksApiImplementation
-    ApiSpecification.RegisterHandlers(e, &api)
+    var api controllers.ApiImplementation
+    server.RegisterHandlers(e, &api)
 
     e.Use(middleware.Logger())
     e.Use(middleware.Recover())

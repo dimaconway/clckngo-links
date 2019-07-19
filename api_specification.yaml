@@ -58,11 +58,11 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Link'
-  /links/{hash}:
+  /links/{code}:
     parameters:
-      - name: hash
+      - name: code
         in: path
-        description: Hash of shortened url
+        description: Code of shortened url
         required: true
         schema:
           type: string
@@ -106,7 +106,7 @@ components:
         - id
         - createdDatetime
         - url
-        - hash
+        - code
         - hits
         - lastHitDatetime
       properties:
@@ -122,9 +122,8 @@ components:
           readOnly: true
         url:
           type: string
-        hash:
+        code:
           type: string
-          readOnly: true
         hits:
           type: integer
           readOnly: true
