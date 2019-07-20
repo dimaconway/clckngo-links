@@ -1,4 +1,4 @@
 vendor
 .env
-links
+/links
 docker-compose.override.yml
