@@ -1,4 +1,5 @@
 openapi: 3.0.0
+
 info:
   description: This is a description of **links** REST-like microservice, a part of **clckngo** project
   version: "1.0.0"
@@ -6,10 +7,16 @@ info:
   contact:
     name: Dmitrii
     email: dimaconway@gmail.com
+
 tags:
   - name: links
     description: The only resource
+  - name: links/manual
+    description: subset of actions for manual management of shortened url
+
+
 paths:
+
   /links:
     post:
       tags:
@@ -58,6 +65,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Link'
+
   /links/{code}:
     parameters:
       - name: code
@@ -69,6 +77,29 @@ paths:
     get:
       tags:
         - links
+      summary: Redirect to shortened url
+      operationId: getLink
+      responses:
+        '302':
+          description: Redirect to shortened url
+          headers:
+            Location:
+              description: Original URL
+              schema:
+                type: string
+                format: uri
+
+  /links/manual/{code}:
+    parameters:
+      - name: code
+        in: path
+        description: Code of shortened url
+        required: true
+        schema:
+          type: string
+    get:
+      tags:
+        - links/manual
       summary: Return shortened url
       operationId: getLink
       responses:
@@ -80,7 +111,7 @@ paths:
                 $ref: '#/components/schemas/Link'
     patch:
       tags:
-        - links
+        - links/manual
       summary: Increment hits counter
       operationId: incrementHitsCounter
       responses:
@@ -92,14 +123,18 @@ paths:
                 $ref: '#/components/schemas/Link'
     delete:
       tags:
-        - links
+        - links/manual
       summary: Delete Link
       operationId: deleteLink
       responses:
         '200':
           description: OK
+
+
 components:
+
   schemas:
+
     Link:
       type: object
       required:
@@ -124,6 +159,7 @@ components:
           type: string
         code:
           type: string
+          readOnly: true
         hits:
           type: integer
           readOnly: true

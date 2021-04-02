@@ -1,6 +1,4 @@
-FROM golang:1.12
-
-LABEL maintainer="dimaconway@gmail.com"
+FROM golang:1.16
 
 WORKDIR /app/
 COPY ./ ./

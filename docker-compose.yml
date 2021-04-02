@@ -1,27 +1,9 @@
 version: '3'
+
 services:
+
   links:
-    image: ${CLCKNGO__DOCKER_IMAGE_PREFIX:-clckngo}_links:latest
-    env_file: ${CLCKNGO_LINKS__ROOT_DIR:-.}/.env
+    image: clckngo_links:latest
+    env_file: ./.env
     build:
-      context: ${CLCKNGO_LINKS__ROOT_DIR:-.}/docker/links
-      dockerfile: ./Dockerfile
-    networks:
-      - links_net
-  links_db:
-    image: ${CLCKNGO__DOCKER_IMAGE_PREFIX:-clckngo}_links_db:latest
-    restart: always
-    env_file: ${CLCKNGO_LINKS__ROOT_DIR:-.}/.env
-    build:
-      context: ${CLCKNGO_LINKS__ROOT_DIR:-.}/docker/links_db
-      dockerfile: ./Dockerfile
-    volumes:
-      - links_db_data:/data/db
-    networks:
-      - links_net
-networks:
-  links_net:
-    driver: bridge
-volumes:
-  links_db_data:
-    driver: local
+      dockerfile: ./docker/links/Dockerfile
