@@ -1,8 +1,8 @@
 module clckngo/links
 
-go 1.12
+go 1.16
 
 require (
-	github.com/deepmap/oapi-codegen v1.2.1
-	github.com/labstack/echo/v4 v4.1.6
+	github.com/deepmap/oapi-codegen v1.5.6
+	github.com/go-chi/chi/v5 v5.0.0
 )

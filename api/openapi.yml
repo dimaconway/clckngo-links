@@ -78,7 +78,7 @@ paths:
       tags:
         - links
       summary: Redirect to shortened url
-      operationId: getLink
+      operationId: redirectByLink
       responses:
         '302':
           description: Redirect to shortened url

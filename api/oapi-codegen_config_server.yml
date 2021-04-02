@@ -1,0 +1,5 @@
+output:
+  ./internal/ports/http/openapi_server.gen.go
+package: ports
+generate:
+  - chi-server
