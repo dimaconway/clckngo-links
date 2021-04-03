@@ -1,5 +1,5 @@
 output:
   ./internal/ports/http/openapi_types.gen.go
-package: ports
+package: http
 generate:
   - types
