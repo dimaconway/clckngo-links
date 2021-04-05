@@ -9,14 +9,14 @@ import (
 )
 
 func main() {
-	var server portsHttp.Server
+	var controller portsHttp.Controller
 
 	router := chi.NewRouter()
 	router.Use(middleware.RequestID)
 	router.Use(middleware.Logger)
 	router.Use(middleware.Recoverer)
 
-	handler := portsHttp.HandlerFromMux(server, router)
+	handler := portsHttp.HandlerFromMux(controller, router)
 
 	port := os.Getenv("PORT")
 	err := http.ListenAndServe(

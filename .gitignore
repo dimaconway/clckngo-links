@@ -1,5 +1,6 @@
 .idea
 vendor
+air_tmp
 .env
 docker-compose.override.yml
 /clckngo-links

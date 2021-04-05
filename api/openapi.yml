@@ -39,16 +39,10 @@ paths:
         '400':
           description: 'invalid input, object invalid'
           content:
-            application/json:
+            text/plain:
               schema:
-                type: object
-                properties:
-                  url:
-                    type: string
-                    description: Original url from request
-                  reason:
-                    type: string
-                    description: Error reason
+                type: string
+                description: Error reason
         '409':
           description: an existing item already exists
     get:
@@ -157,6 +151,7 @@ components:
           readOnly: true
         url:
           type: string
+          format: uri
         code:
           type: string
           readOnly: true
