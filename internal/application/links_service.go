@@ -8,8 +8,7 @@ import (
 )
 
 func ShortURL(url string) (*domain.Link, error) {
-	println(url)
-	if !govalidator.IsRequestURI(url) {
+	if !govalidator.IsRequestURL(url) {
 		return nil, errors.New(fmt.Sprintf("URL %s is not valid", url))
 	}
 

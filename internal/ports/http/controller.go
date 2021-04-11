@@ -6,6 +6,13 @@ import (
 	"net/http"
 )
 
+func respondJSON(w http.ResponseWriter, obj interface{}) {
+	w.Header().Set("Content-Type", "application/json")
+	if err := json.NewEncoder(w).Encode(obj); err != nil {
+		panic(err)
+	}
+}
+
 type Controller struct{}
 
 func (c Controller) StoreLink(w http.ResponseWriter, r *http.Request) {
@@ -14,7 +21,12 @@ func (c Controller) StoreLink(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic(err)
 	}
-	application.ShortURL(requestBodyObject.Url)
+	link, err := application.ShortURL(requestBodyObject.Url)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	respondJSON(w, link)
 }
 
 type StoreLinkRequestBody struct {
