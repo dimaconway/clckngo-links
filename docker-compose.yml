@@ -6,4 +6,5 @@ services:
     image: clckngo_links:latest
     env_file: ./.env
     build:
+      context: ./
       dockerfile: ./docker/links/Dockerfile

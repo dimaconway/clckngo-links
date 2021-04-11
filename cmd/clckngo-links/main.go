@@ -2,6 +2,7 @@ package main
 
 import (
 	portsHttp "clckngo/links/internal/ports/http"
+	"fmt"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"net/http"
@@ -18,9 +19,11 @@ func main() {
 
 	handler := portsHttp.HandlerFromMux(controller, router)
 
-	port := os.Getenv("PORT")
+	port := os.Getenv("LINKS_PORT")
+
+	fmt.Printf("Starting server on a port %s ...\n", port)
 	err := http.ListenAndServe(
-		"localhost:"+port,
+		"0.0.0.0:"+port,
 		handler,
 	)
 	if err != nil {

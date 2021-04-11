@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+
+  links:
+    volumes:
+      - .:/app
+      - go-modules:/go/pkg/mod
+    command: make watch
+    ports:
+      - ${LINKS_PORT}:8080
+    environment:
+      LINKS_PORT: 8080
+
+volumes:
+  go-modules:
