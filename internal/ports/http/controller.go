@@ -13,7 +13,9 @@ func respondJSON(w http.ResponseWriter, obj interface{}) {
 	}
 }
 
-type Controller struct{}
+type Controller struct {
+	LinksService *application.LinksService
+}
 
 func (c Controller) StoreLink(w http.ResponseWriter, r *http.Request) {
 	var requestBodyObject StoreLinkRequestBody
@@ -21,7 +23,7 @@ func (c Controller) StoreLink(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic(err)
 	}
-	link, err := application.ShortURL(requestBodyObject.Url)
+	link, err := c.LinksService.ShortURL(requestBodyObject.Url)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
