@@ -19,6 +19,12 @@ mod:
 	go mod tidy
 	go mod vendor
 
+fmt:
+	go fmt ./...
+
+test:
+	go test ./...
+
 openapi:
 	go run github.com/deepmap/oapi-codegen/cmd/oapi-codegen --config ./api/oapi-codegen_config_types.yml ./api/openapi.yml
 

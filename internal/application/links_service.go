@@ -1,8 +1,8 @@
 package application
 
 import (
+	"clckngo/links/internal/adapters/db/postgresql"
 	"clckngo/links/internal/domain"
-	"clckngo/links/internal/ports/db/postgresql"
 	"crypto/md5"
 	"errors"
 	"fmt"

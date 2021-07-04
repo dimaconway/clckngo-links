@@ -1,8 +1,8 @@
 package main
 
 import (
+	"clckngo/links/internal/adapters/db/postgresql"
 	"clckngo/links/internal/application"
-	"clckngo/links/internal/ports/db/postgresql"
 	portsHttp "clckngo/links/internal/ports/http"
 	"database/sql"
 	"fmt"
@@ -15,6 +15,10 @@ import (
 
 func main() {
 	db, err := initDb()
+	if err != nil {
+		panic(err)
+	}
+	err = db.Ping()
 	if err != nil {
 		panic(err)
 	}
@@ -61,7 +65,7 @@ func initDb() (*sql.DB, error) {
 	return sql.Open(
 		"pgx",
 		fmt.Sprintf(
-			"%s:%s@%s:%s/%s",
+			"postgres://%s:%s@%s:%s/%s",
 			dbUser,
 			dbPassword,
 			dbHostname,

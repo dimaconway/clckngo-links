@@ -1,6 +1,6 @@
 CREATE TABLE links
 (
-    id                INT PRIMARY KEY,
+    id                SERIAL PRIMARY KEY,
     created_datetime  TIMESTAMP    NOT NULL,
     url               VARCHAR(255) NOT NULL,
     code              VARCHAR(50)  NOT NULL,
